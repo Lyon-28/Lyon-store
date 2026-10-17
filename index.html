@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#6d5dfc">
+  <title>Lyon Store</title>
+  <meta name="description" content="Top up pulsa, paket data, voucher game, token listrik dan e-wallet. Cepat, aman, 24 jam.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand"><i class="fa-solid fa-bolt"></i><span>Lyon Store</span></div>
+  <div class="top-actions">
+    <button class="icon-btn" id="btnTheme" aria-label="Ganti tema"><i class="fa-solid fa-moon"></i></button>
+  </div>
+</header>
+
+<main class="app">
+
+  <!-- ============ BERANDA ============ -->
+  <section class="view active" id="view-home">
+    <div class="hero">
+      <h1>Isi ulang apa<br>hari ini?</h1>
+      <p>Pulsa, paket data, game & lainnya. Proses otomatis 24 jam.</p>
+      <div class="search">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input type="search" id="search" placeholder="Cari kategori atau produk..." autocomplete="off">
+      </div>
+    </div>
+
+    <div class="section-title">Kategori</div>
+    <div class="cat-grid" id="categories"></div>
+
+    <div id="orderSection" hidden>
+      <div class="section-head">
+        <button class="link-btn" id="btnBack"><i class="fa-solid fa-chevron-left"></i> Kategori</button>
+        <div class="section-title" id="catTitle">-</div>
+      </div>
+
+      <div class="card">
+        <label class="label" for="target" id="targetLabel">Nomor HP</label>
+        <div class="input-wrap">
+          <i class="fa-solid fa-mobile-screen" id="targetIcon"></i>
+          <input type="tel" id="target" inputmode="numeric" placeholder="08xxxxxxxxxx" autocomplete="off">
+          <span class="op-badge" id="opBadge" hidden></span>
+          <button class="clear-btn" id="btnClear" hidden aria-label="Hapus"><i class="fa-solid fa-circle-xmark"></i></button>
+        </div>
+        <div class="zone-wrap" id="zoneWrap" hidden>
+          <label class="label" for="zone">Zone / Server ID</label>
+          <div class="input-wrap">
+            <i class="fa-solid fa-server"></i>
+            <input type="text" id="zone" inputmode="numeric" placeholder="Contoh: 2001" autocomplete="off">
+          </div>
+        </div>
+        <div class="hint" id="targetHint"></div>
+      </div>
+
+      <div class="chips" id="brands"></div>
+      <div class="prod-grid" id="products"></div>
+    </div>
+  </section>
+
+  <!-- ============ CEK PESANAN ============ -->
+  <section class="view" id="view-track">
+    <div class="section-title">Cek Pesanan</div>
+    <div class="card">
+      <label class="label" for="trackId">ID Pesanan</label>
+      <div class="input-wrap">
+        <i class="fa-solid fa-receipt"></i>
+        <input type="text" id="trackId" placeholder="Contoh: TPK-20261017-ABC123" autocomplete="off">
+      </div>
+      <button class="btn primary block" id="btnTrack"><i class="fa-solid fa-magnifying-glass"></i> Cek Status</button>
+    </div>
+    <div id="trackResult"></div>
+  </section>
+
+  <!-- ============ RIWAYAT ============ -->
+  <section class="view" id="view-history">
+    <div class="section-head">
+      <div class="section-title">Riwayat</div>
+      <button class="link-btn danger" id="btnClearHistory"><i class="fa-solid fa-trash"></i> Hapus</button>
+    </div>
+    <div id="historyList"></div>
+  </section>
+
+  <!-- ============ BANTUAN ============ -->
+  <section class="view" id="view-help">
+    <div class="section-title">Bantuan</div>
+    <div class="faq">
+      <details><summary>Berapa lama proses top up? <i class="fa-solid fa-chevron-down"></i></summary>
+        <p>Umumnya 1-5 menit setelah pembayaran berhasil. Jika lebih dari 30 menit, hubungi kami dengan menyertakan ID pesanan.</p></details>
+      <details><summary>Salah memasukkan nomor / ID game? <i class="fa-solid fa-chevron-down"></i></summary>
+        <p>Pesanan yang sudah diproses tidak dapat dibatalkan atau dipindahkan. Pastikan data sudah benar sebelum membayar.</p></details>
+      <details><summary>Pembayaran sudah dilakukan tapi status belum berubah? <i class="fa-solid fa-chevron-down"></i></summary>
+        <p>Tunggu beberapa menit lalu cek di menu Cek Pesanan. Jika masih tertunda, hubungi admin.</p></details>
+      <details><summary>Apakah transaksi saya aman? <i class="fa-solid fa-chevron-down"></i></summary>
+        <p>Pembayaran diproses oleh payment gateway resmi. Kami tidak pernah meminta password atau kode OTP kamu.</p></details>
+    </div>
+    <a class="btn wa block" id="btnWA" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i> Hubungi Admin via WhatsApp</a>
+    <div class="legal">
+      <a href="#" data-legal="tos">Syarat & Ketentuan</a> · <a href="#" data-legal="privacy">Kebijakan Privasi</a>
+    </div>
+  </section>
+</main>
+
+<!-- Bar pesanan terpilih -->
+<div class="pick-bar" id="pickBar" hidden>
+  <div class="pick-info">
+    <small id="pickName">-</small>
+    <strong id="pickPrice">Rp0</strong>
+  </div>
+  <button class="btn primary" id="btnNext">Lanjut <i class="fa-solid fa-arrow-right"></i></button>
+</div>
+
+<!-- Bottom nav -->
+<nav class="bottom-nav">
+  <button class="nav-item active" data-view="home"><i class="fa-solid fa-house"></i><span>Beranda</span></button>
+  <button class="nav-item" data-view="track"><i class="fa-solid fa-receipt"></i><span>Pesanan</span></button>
+  <button class="nav-item" data-view="history"><i class="fa-solid fa-clock-rotate-left"></i><span>Riwayat</span></button>
+  <button class="nav-item" data-view="help"><i class="fa-solid fa-headset"></i><span>Bantuan</span></button>
+</nav>
+
+<!-- Bottom sheet checkout -->
+<div class="overlay" id="overlay" hidden></div>
+<div class="sheet" id="sheet" hidden role="dialog" aria-modal="true">
+  <div class="sheet-handle"></div>
+  <div class="sheet-head">
+    <h3>Konfirmasi Pesanan</h3>
+    <button class="icon-btn" id="btnCloseSheet" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+  </div>
+  <div class="sheet-body">
+    <div class="summary" id="summary"></div>
+
+    <label class="label" for="contact">No. WhatsApp / Email (untuk notifikasi)</label>
+    <div class="input-wrap">
+      <i class="fa-regular fa-envelope"></i>
+      <input type="text" id="contact" placeholder="08xx atau email@contoh.com" autocomplete="off">
+    </div>
+
+    <div class="label" style="margin-top:14px">Metode Pembayaran</div>
+    <div class="pay-list" id="payList"></div>
+
+    <div class="total-box">
+      <div><span>Harga</span><b id="tPrice">Rp0</b></div>
+      <div><span>Biaya layanan</span><b id="tFee">Rp0</b></div>
+      <div class="grand"><span>Total Bayar</span><b id="tTotal">Rp0</b></div>
+    </div>
+  </div>
+  <div class="sheet-foot">
+    <button class="btn primary block" id="btnPay"><i class="fa-solid fa-lock"></i> Bayar Sekarang</button>
+  </div>
+</div>
+
+<!-- Custom alert / modal -->
+<div class="modal-root" id="modalRoot"></div>
+<div class="toast-root" id="toastRoot"></div>
+<div class="loader" id="loader" hidden><div class="spinner"></div></div>
+
+<script src="js/config.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/api.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
